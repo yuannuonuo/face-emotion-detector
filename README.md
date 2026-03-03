@@ -2,8 +2,6 @@
 
 基于 AI 的浏览器端实时多人脸情绪检测系统，使用 face-api.js 和 TensorFlow.js 实现。
 
-![项目截图](face-emotion-page.png)
-
 ## 📖 项目简介
 
 这是一个纯前端的人脸情绪识别应用，可以通过摄像头实时检测画面中的多张人脸，并识别每个人的情绪状态。所有计算在浏览器本地完成，不上传任何数据，完全保护用户隐私。
@@ -74,7 +72,7 @@ face-emotion-detector/
 1. **下载项目**
    ```bash
    # 如果是 Git 仓库
-   git clone <repository-url>
+   git clone https://github.com/yuannuonuo/face-emotion-detector
    cd face-emotion-detector
    
    # 或直接下载 ZIP 并解压到桌面
@@ -317,10 +315,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-## 👨‍💻 作者
-
-由 AI 辅助开发，基于用户需求定制。
 
 ## 🙏 致谢
 
