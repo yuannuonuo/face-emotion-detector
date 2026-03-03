@@ -89,7 +89,7 @@ face-emotion-detector/
 **方法 1：使用 Python 内置服务器（推荐）**
 
 ```bash
-cd ~/Desktop/face-emotion-detector
+cd ~/face-emotion-detector
 python3 -m http.server 8080
 ```
 
@@ -97,14 +97,14 @@ python3 -m http.server 8080
 
 ```bash
 npm install -g http-server
-cd ~/Desktop/face-emotion-detector
+cd ~/face-emotion-detector
 http-server -p 8080
 ```
 
 **方法 3：使用 PHP 内置服务器**
 
 ```bash
-cd ~/Desktop/face-emotion-detector
+cd ~/face-emotion-detector
 php -S localhost:8080
 ```
 
