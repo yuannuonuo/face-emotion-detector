@@ -1,0 +1,127 @@
+<!--
+  实时人脸情绪识别 - 主页面
+  
+  功能概述：
+  - 使用 face-api.js 进行实时人脸检测和情绪识别
+  - 支持多人脸同时检测
+  - 所有计算在浏览器本地完成，保护隐私
+  
+  页面结构：
+  1. header: 标题和说明
+  2. main: 核心功能区
+     - video-container: 摄像头画面 + Canvas 叠加层 + 状态提示
+     - info-bar: 实时信息展示（状态、人脸数、帧率）
+     - error-container: 错误提示和重试按钮
+  3. footer: 情绪颜色图例和隐私说明
+  
+  依赖的 JavaScript 文件：
+  - face-api.min.js: 人脸检测和情绪识别库
+  - script.js: 核心业务逻辑
+-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- 字符编码设置为 UTF-8，支持中文 -->
+  <meta charset="UTF-8">
+  <!-- 响应式设计：视口宽度等于设备宽度，初始缩放比例 1.0 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 页面标题，显示在浏览器标签页 -->
+  <title>实时人脸情绪识别</title>
+  <!-- 引入样式表 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 应用主容器 -->
+  <div class="app">
+    <!-- 头部：标题和副标题 -->
+    <header class="header">
+      <h1>😊 实时人脸情绪识别</h1>
+      <p class="subtitle">基于 AI 的多人脸情绪检测 · 打开摄像头即可使用</p>
+    </header>
+
+    <!-- 主体内容区 -->
+    <main class="main">
+      <!-- 视频容器包装器 -->
+      <div class="video-wrapper">
+        <!-- 视频容器：包含 video、canvas 和状态覆盖层 -->
+        <div class="video-container" id="videoContainer">
+          <!-- 
+            video 元素：显示摄像头实时画面
+            - autoplay: 自动播放
+            - muted: 静音（必须，否则 autoplay 可能被浏览器阻止）
+            - playsinline: 在移动端内联播放，不全屏
+          -->
+          <video id="video" autoplay muted playsinline></video>
+          
+          <!-- 
+            canvas 元素：叠加在 video 上方，用于绘制人脸边框、情绪标签和柱状图
+            通过 CSS 定位为 absolute，与 video 完全重叠
+          -->
+          <canvas id="overlay"></canvas>
+          
+          <!-- 
+            状态覆盖层：在加载模型和启动摄像头时显示
+            检测开始后通过 JavaScript 添加 'hidden' 类隐藏
+          -->
+          <div class="status-overlay" id="statusOverlay">
+            <!-- 加载动画：旋转的圆环 -->
+            <div class="spinner" id="spinner"></div>
+            <!-- 状态文本：显示当前进度（如"正在加载模型..."） -->
+            <p class="status-text" id="statusText">正在初始化...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 信息栏：显示实时统计数据 -->
+      <div class="info-bar" id="infoBar">
+        <!-- 状态信息卡片 -->
+        <div class="info-item">
+          <span class="info-label">状态</span>
+          <span class="info-value" id="statusValue">加载中</span>
+        </div>
+        <!-- 检测到的人脸数量 -->
+        <div class="info-item">
+          <span class="info-label">检测人脸</span>
+          <span class="info-value" id="faceCount">0</span>
+        </div>
+        <!-- 实时帧率（FPS） -->
+        <div class="info-item">
+          <span class="info-label">帧率</span>
+          <span class="info-value" id="fpsValue">--</span>
+        </div>
+      </div>
+
+      <!-- 
+        错误容器：默认隐藏，出错时通过 JavaScript 显示
+        包含错误信息和重试按钮
+      -->
+      <div class="error-container" id="errorContainer" style="display:none;">
+        <p class="error-text" id="errorText"></p>
+        <!-- 重试按钮：点击后刷新页面 -->
+        <button class="retry-btn" id="retryBtn" onclick="location.reload()">重新尝试</button>
+      </div>
+    </main>
+
+    <!-- 底部：情绪颜色图例和隐私说明 -->
+    <footer class="footer">
+      <!-- 情绪图例：展示 7 种情绪及其对应颜色 -->
+      <div class="legend">
+        <span class="legend-item"><i style="background:#00BCD4"></i>平静</span>
+        <span class="legend-item"><i style="background:#4CAF50"></i>开心</span>
+        <span class="legend-item"><i style="background:#2196F3"></i>伤心</span>
+        <span class="legend-item"><i style="background:#f44336"></i>愤怒</span>
+        <span class="legend-item"><i style="background:#9C27B0"></i>恐惧</span>
+        <span class="legend-item"><i style="background:#FF9800"></i>厌恶</span>
+        <span class="legend-item"><i style="background:#FFEB3B"></i>惊讶</span>
+      </div>
+      <!-- 隐私说明 -->
+      <p class="footer-note">所有计算均在浏览器本地完成，不上传任何数据</p>
+    </footer>
+  </div>
+
+  <!-- 引入 face-api.js 库（人脸检测和情绪识别） -->
+  <script src="face-api.min.js"></script>
+  <!-- 引入核心业务逻辑脚本 -->
+  <script src="script.js"></script>
+</body>
+</html>
